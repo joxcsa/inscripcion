@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Especialidad en Logística</title>
+  <link rel="stylesheet" href="../Recursos/Diseño/estilo_horarios.css" />
+</head>
+<body>
+
+  <header>
+
+    <div class="logo">
+      <img src="../Recursos/Imagenes_Escuela/logo.png" alt="Logo CETis 23">
+      <h1>CETis No. 23</h1>
+    </div>
+    <nav>
+      <a href="Pagina_Principal.html">Inicio</a>
+      <div class="dropdown">
+        <button class="dropbtn">Formularios</button>
+        <div class="dropdown-content">
+          <a href="../Vista/guardar_alumno.php">Alumnos</a>
+          <a href="../Vista/guardar_administrativo.php">Administrativo</a>
+          <a href="../Vista/guardar_aulas.php">Aulas</a>
+          <a href="../Vista/guardar_auxiliares.php">Auxiliares</a>
+          <a href="../Vista/guardar_boleta.php">Boleta</a>
+          <a href="../Vista/guardar_carreras.php">Carreras</a>
+          <a href="../Vista/guardar_documentos.php">Documentos</a>
+          <a href="../Vista/guardar_grado.php">Grado</a>
+          <a href="../Vista/guardar_grupos.php">Grupo</a>
+          <a href="../Vista/guardar_historial_academico.php">Historial Academico</a>
+          <a href="../Vista/guardar_historial_disciplina.php">Historial Disciplina</a>
+          <a href="../Vista/guardar_materias.php">Materias</a>
+          <a href="../Vista/guardar_profesor.php">Profesor</a>
+          <a href="../Vista/guardar_turno.php">Turno</a>
+          <a href="../Vista/guardar_tutores.php">Tutores</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn">Mostrar</button>
+        <div class="dropdown-content">
+          <a href="../Mostrar/mostrar_tabla_alumno.php">Alumnos</a>
+        <a href="../Mostrar/mostrar_tabla_administrativo.php">Administrativo</a>
+        <a href="../Mostrar/mostrar_tabla_aula.php">Aulas</a>
+        <a href="../Mostrar/mostrar_tabla_auxiliar.php">Auxiliares</a>
+        <a href="../Mostrar/mostrar_tabla_boleta.php">Boleta</a>
+        <a href="../Mostrar/mostrar_tabla_carrera.php">Carreras</a>
+        <a href="../Mostrar/mostrar_tabla_documentos.php">Documentos</a>
+        <a href="../Mostrar/mostrar_tabla_grado.php">Grado</a>
+        <a href="../Mostrar/mostrar_tabla_grupo.php">Grupo</a>
+        <a href="../Mostrar/mostrar_tabla_historial_academico.php">Historial Academico</a>
+        <a href="../Mostrar/mostrar_tabla_historial_disciplina.php">Historial Disciplina</a>
+        <a href="../Mostrar/mostrar_tabla_materia.php">Materias</a>
+        <a href="../Mostrar/mostrar_tabla_profesor.php">Profesor</a>
+        <a href="../Mostrar/mostrar_tabla_turno.php">Turno</a>
+        <a href="../Mostrar/mostrar_tabla_tutor.php">Tutores</a>
+        </div>
+      </div>
+      <a href="Pagina_carreras.html">Carreras</a>
+      <a href="#">Perfil</a>
+    </nav>  
+  </header>
+  
+  <section class="banner">
+    <img src="../Recursos/Imagenes_Escuela/banner.png" alt="Entrada del CETis 23">
+  </section>
+
+  <section id="horarios" class="seccion-horarios">
+  <div class="contenedor-boton">
+    <h2 class="titulo-horarios">Horarios</h2>
+    <button onclick="toggleModal()" class="boton-ver">Ver Horarios</button>
+  </div>
+
+  <div id="modalHorarios" class="modal-overlay hidden">
+    <div class="modal-contenido">
+      <button onclick="toggleModal()" class="cerrar-modal">&times;</button>
+      <h3 class="modal-titulo">Selecciona tu carrera y grupo</h3>
+
+      <select id="carreraSelect" onchange="updateGrupos()" class="select-input">
+        <option value="" disabled selected>Selecciona una carrera</option>
+        <option value="programacion">Programación</option>
+        <option value="logistica">Logística</option>
+        <option value="laboratorista">Laboratorista Químico</option>
+        <option value="contabilidad">Contabilidad</option>
+        <option value="electromecanica">Electromecánica</option>
+        <option value="inteligencia">Inteligencia Artificial</option>
+        <option value="software">Sistemas de Software Embebido</option>
+      </select>
+
+      <select id="turnoSelect" onchange="updateGrupos()" class="select-input">
+        <option value="" disabled selected>Selecciona un turno</option>
+        <option value="M">Matutino</option>
+        <option value="V">Vespertino</option>
+      </select>
+
+      <select id="semestreSelect" onchange="updateGrupos()" class="select-input">
+        <option value="" disabled selected>Selecciona un semestre</option>
+        <option value="2">2° semestre</option>
+        <option value="4">4° semestre</option>
+        <option value="6">6° semestre</option>
+      </select>
+
+      <select id="grupoSelect" class="select-input">
+        <option value="" disabled selected>Primero elige una carrera</option>
+      </select>
+
+      <a id="downloadLink" href="#" download class="boton-descarga">
+        📥 Descargar Horario
+      </a>
+    </div>
+    </div>
+  </section>
+
+  <script>
+  const horarios = {
+    programacion: ['2 AMP', '2 BMP','2 AVP','2 BVP', '4 AMP', '4 BMP','4 AVP','4 BVP','4 CVP', '6 AMP', '6 BMP','6 CMP','6 AVP','6 BVP'],
+    logistica: ['2 AMG','2 AVG', '4 AMG', '4 AVG'],
+    laboratorista: ['2 AML','2 AVL', '4 AML', '4 AVL','6 AML','6 AVL'],
+    contabilidad: ['2 AMC','2 BMC','2 AVC', '4 AMC', '4 AVC','6 AMC','6 AVC'],
+    electromecanica: ['2 AME', '2 BME','2 AVE','2 BVE', '4 AME', '4 BME','4 AVE','4 BVE', '6 AME', '6 BME','6 AVE','6 BVE'],
+    inteligencia: ['2 AMI', '2 BMI', '4 AMI', '4 BMI', '6 AMI'],
+    software: ['2 AMS', '4 AMS', '6 AMS']
+  };
+  function updateGrupos() {
+    const carrera = document.getElementById('carreraSelect').value;
+    const turno = document.getElementById('turnoSelect').value;
+    const semestre = document.getElementById('semestreSelect').value;
+    const grupoSelect = document.getElementById('grupoSelect');
+    grupoSelect.innerHTML = '';
+    const grupos = horarios[carrera] || [];
+    const filtrados = grupos.filter(grupo => {
+      return grupo.includes(turno) && grupo.startsWith(semestre);
+    });
+    if (filtrados.length > 0) {
+      filtrados.forEach(grupo => {
+        const option = document.createElement('option');
+        option.value = grupo;
+        option.textContent = grupo;
+        grupoSelect.appendChild(option);
+      });
+
+      grupoSelect.onchange = () => {
+        const grupo = grupoSelect.value;
+        const link = document.getElementById('downloadLink');
+        link.href = `../Recursos/Horarios/${carrera}/${grupo.replace(/\s/g, '')}.pdf`;
+        link.classList.remove('pointer-events-none');
+        link.classList.remove('disabled:opacity-50');
+      };
+    } else {
+      const option = document.createElement('option');
+      option.disabled = true;
+      option.selected = true;
+      option.textContent = 'No hay grupos disponibles con esos filtros';
+      grupoSelect.appendChild(option);
+      document.getElementById('downloadLink').classList.add('pointer-events-none', 'disabled:opacity-50');
+      document.getElementById('downloadLink').href = '#';
+    }
+  }
+</script>
+<script>
+  function toggleModal() {
+    const modal = document.getElementById('modalHorarios');
+    modal.classList.toggle('hidden');
+  }
+</script>
+
+  <!-- Info contacto y footer -->
+  <div class="info-contacto">
+    <p><strong>Tel:</strong> 7282851097 / 7282822517</p>
+    <p><strong>Email:</strong> cetis023.dir@dgeti.sems.gob.mx</p>
+    <p><strong>Buzón:</strong> buzonce23@gmail.com</p>
+  </div>
+
+  <footer>
+    &copy; 2025 CETis No. 23 - Todos los derechos reservados.
+    <br>
+    <a href="terminos_condi.html">Términos y Condiciones</a><br>
+    <a href="Avis-priva.html">Privacidad</a><br>
+    <a href="ayuda.html">Soporte</a>
+  </footer>
+
+</body>
+</html>
